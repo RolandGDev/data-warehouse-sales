@@ -166,15 +166,16 @@ def generate_product_records() -> list[dict]:
     Returns:
         list[dict]: NUM_PRODUCTS product records.
     """
-    return [
-        {
-            "product_name": random.choice(names),
+    records = []
+    for i in range(NUM_PRODUCTS):
+        category = random.choice(list(PRODUCT_CATALOG.keys()))
+        product_name = random.choice(PRODUCT_CATALOG[category])
+        records.append({
+            "product_name": product_name,
             "category":     category,
             "price":        round(random.uniform(50, 5000), 2),
-        }
-        for _ in range(NUM_PRODUCTS)
-        for category, names in [random.choice(list(PRODUCT_CATALOG.items()))]
-    ]
+        })
+    return records
 
 
 def load_products_records(engine: Engine) -> None:
